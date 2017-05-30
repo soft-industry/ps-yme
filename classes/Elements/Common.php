@@ -115,8 +115,8 @@ abstract class Common
     protected $id_lang;
     
     /**
-     * @var array Mapping between element property and product feature 
-     * in format 'key => value', where key is element property and 
+     * @var array Mapping between element property and product feature
+     * in format 'key => value', where key is element property and
      * value is product feature name.
      */
     protected $featuresMap = array();
@@ -128,7 +128,7 @@ abstract class Common
      * @param array $featuresMap Optional. Element properties and product
      * features mapping.
      */
-    public function __construct(Product $product, array $featuresMap = [])
+    public function __construct(Product $product, array $featuresMap = array())
     {
         $this->product = $product;
         $this->id_lang = Context::getContext()->language->id;
@@ -257,7 +257,7 @@ abstract class Common
         }
 
         $link = Context::getContext()->link;
-        $pictures = [];
+        $pictures = array();
 
         foreach ($images as $image) {
             $url = $link->getImageLink($this->product->link_rewrite[$this->id_lang], $image['id_image']);
@@ -283,16 +283,15 @@ abstract class Common
         $this->isValid = false;
 
         // Last chance to change element properties.
-        \Hook::exec('offerElementBeforeValidate', [
+        \Hook::exec('offerElementBeforeValidate', array(
             'element' => $this,
-        ]);
+        ));
 
         foreach ($this->getValidators() as $attribute => $validators) {
             foreach ($validators as $validator) {
                 if ($validator === 'isRequired') {
                     $result = !empty($this->$attribute);
-                }
-                elseif ($this->$attribute) {
+                } elseif ($this->$attribute) {
                     $value = $this->$attribute;
                     if (!is_callable($validator)) {
                         throw new \RuntimeException('Validator must be instance method or callable.');

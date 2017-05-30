@@ -38,10 +38,10 @@ class CSV extends Render
      */
     public function getDefaultOptions()
     {
-        return [
+        return array(
             'delimiter' => chr(9), // TAB character.
             'stream' => 'php://output',
-        ];
+        );
     }
 
     /**

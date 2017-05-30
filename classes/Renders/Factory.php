@@ -25,13 +25,13 @@ class Factory
     const XLS = 'XLS';
     
     /**
-     * 
+     * Creates a render.
      * @param string $type Render type.
      * @param array $options Optional. Options which render accept.
      * @return Render
      * @throws Exception
      */
-    public static function create($type, array $options = [])
+    public static function create($type, array $options = array())
     {
         switch ($type) {
             case self::YML:

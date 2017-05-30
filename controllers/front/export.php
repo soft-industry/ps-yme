@@ -110,7 +110,8 @@ class YmeExportModuleFrontController extends ModuleFrontController
      */
     protected function getFilename(Generator $generator, $base = 'export-')
     {
-        return sprintf('%s%s-%s.%s',
+        return sprintf(
+            '%s%s-%s.%s',
             $base,
             $generator->getOfferType()->getType(),
             date('Y-m-d'),
@@ -157,7 +158,6 @@ class YmeExportModuleFrontController extends ModuleFrontController
         $categories = Category::getCategories(Context::getContext()->language->id);
 
         foreach ($categories as $children) {
-
             foreach ($children as $child) {
                 $child = $child['infos'];
                 $result[] = array(
@@ -166,7 +166,6 @@ class YmeExportModuleFrontController extends ModuleFrontController
                     'parentId' => $child['id_parent'],
                 );
             }
-
         }
         
         return $result;

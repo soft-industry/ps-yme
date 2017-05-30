@@ -58,7 +58,7 @@ class Excel extends CSV
      */
     public function getDefaultOptions()
     {
-        return [
+        return array(
             'filename' => 'php://output',
             'type' => 'Excel2007',
             'header_style' => array(
@@ -69,7 +69,7 @@ class Excel extends CSV
                     'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
                 ),
             ),
-        ];
+        );
     }
     
     /**

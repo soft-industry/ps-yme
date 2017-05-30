@@ -183,7 +183,6 @@ class OfferType
                     'options' => 'Options',
                 );
                 break;
-            
         }
         
         return array_merge($common, $features);

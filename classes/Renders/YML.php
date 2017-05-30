@@ -37,7 +37,7 @@ class YML extends Render
      */
     public function getDefaultOptions()
     {
-        return [
+        return array(
             'charset'       => 'UTF-8', // windows-1251
             'catalog_date'  => time(),
             'company'       => '',
@@ -45,7 +45,7 @@ class YML extends Render
             'shop_url'      => '', // Required.
             'currencies'    => array(), // list or callable.
             'categories'    => array(), // list or callable.
-        ];
+        );
     }
     
     /**
@@ -53,9 +53,10 @@ class YML extends Render
      */
     public function getHeader()
     {
-        return sprintf("<?xml version=\"1.0\" encoding=\"%s\"?>\n<yml_catalog date=\"%s\">\n<shop>\n",
-                $this->options['charset'],
-                date('Y-m-d H:i', $this->options['catalog_date'])
+        return sprintf(
+            "<?xml version=\"1.0\" encoding=\"%s\"?>\n<yml_catalog date=\"%s\">\n<shop>\n",
+            $this->options['charset'],
+            date('Y-m-d H:i', $this->options['catalog_date'])
         )
             . $this->getShopInfo()
             . $this->getCurrencies()
@@ -106,8 +107,7 @@ class YML extends Render
         $currencies = $this->options['currencies'];
         if (is_callable($currencies)) {
             $currencies = call_user_func($currencies);
-        }
-        elseif (!is_array($currencies)) {
+        } elseif (!is_array($currencies)) {
             throw new Exception('Option "currencies" must be a list or a callable.');
         }
         
@@ -128,16 +128,15 @@ class YML extends Render
         $categories = $this->options['categories'];
         if (is_callable($categories)) {
             $categories = call_user_func($categories);
-        }
-        elseif (!is_array($categories)) {
+        } elseif (!is_array($categories)) {
             throw new Exception('Option "categories" must be a list or a callable.');
         }
         
         $tags = array_map(function (array $category) {
-            return $this->getTag('category', $category['name'], [
+            return $this->getTag('category', $category['name'], array(
                 'id'       => $category['id'],
                 'parentId' => $category['parentId'] == 0 ? '' : $category['parentId'],
-            ]);
+            ));
         }, $categories);
         
         return $this->getTag('categories', $tags);
@@ -339,7 +338,7 @@ class YML extends Render
      * @param array $attributes
      * @return string
      */
-    protected function getTag($tag, $content, array $attributes = [])
+    protected function getTag($tag, $content, array $attributes = array())
     {
         if (empty($content) && empty($attributes)) {
             return '';

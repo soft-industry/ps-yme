@@ -106,7 +106,6 @@ class Yme extends Module
         
         // Update common module settings.
         if (Tools::isSubmit('SubmitSettings')) {
-            
             $result = false; // Status result.
 
             $offer_type = Tools::getValue('YME_EXPORT');
@@ -208,7 +207,6 @@ class Yme extends Module
         
         // Offer element forms.
         foreach ($offer_types as $type => $title) {
-
             $offer = new OfferType($type);
             $offer_features = $offer->getFeatures();
             if (empty($offer_features)) {
