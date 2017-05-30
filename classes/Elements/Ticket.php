@@ -49,16 +49,24 @@ class Ticket extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'type' => ['isRequired'],
-            'name' => ['isRequired', ['Validate', 'isGenericName']],
-            'place' => ['isRequired', ['Validate', 'isGenericName']],
-            'hall' => [['Validate', 'isGenericName']],
-            'hall_part' => [['Validate', 'isGenericName']],
-            'date' => ['isRequired', [$this, 'validateDate']],
-            'is_premiere' => [['Validate', 'isBool']],
-            'is_kids' => [['Validate', 'isBool']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'type' => array('isRequired'),
+            'name' => array('isRequired', array('Validate', 'isGenericName')),
+            'place' => array('isRequired', array('Validate', 'isGenericName')),
+            'hall' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'hall_part' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'date' => array('isRequired', array($this, 'validateDate')),
+            'is_premiere' => array(
+                array('Validate', 'isBool'),
+            ),
+            'is_kids' => array(
+                array('Validate', 'isBool'),
+            ),
+        ));
     }
 
     /**

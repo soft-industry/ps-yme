@@ -52,17 +52,33 @@ class Media extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'type' => ['isRequired'],
-            'artist' => [['Validate', 'isGenericName']],
-            'title' => [['Validate', 'isGenericName']],
-            'year' => [['Validate', 'isUnsignedInt']],
-            'media' => [['Validate', 'isGenericName']],
-            'starring' => [['Validate', 'isGenericName']],
-            'director' => [['Validate', 'isGenericName']],
-            'originalName' => [['Validate', 'isGenericName']],
-            'country' => [['Validate', 'isGenericName']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'type' => array('isRequired'),
+            'artist' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'title' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'year' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+            'media' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'starring' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'director' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'originalName' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'country' => array(
+                array('Validate', 'isGenericName'),
+            ),
+        ));
     }
 
     /**

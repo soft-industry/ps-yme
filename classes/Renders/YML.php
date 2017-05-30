@@ -25,12 +25,12 @@ class YML extends Render
     /**
      * @var string[] Rendered elements.
      */
-    protected $elements = [];
+    protected $elements = array();
     
     /**
      * @var string[] Xml 'offer' tag list of attributes.
      */
-    protected $offerAttributes = [];
+    protected $offerAttributes = array();
     
     /**
      * @inheritdoc
@@ -43,8 +43,8 @@ class YML extends Render
             'company'       => '',
             'shop_name'     => '', // Required.
             'shop_url'      => '', // Required.
-            'currencies'    => [], // list or callable.
-            'categories'    => [], // list or callable.
+            'currencies'    => array(), // list or callable.
+            'categories'    => array(), // list or callable.
         ];
     }
     
@@ -89,11 +89,11 @@ class YML extends Render
             $this->options['company'] = $this->options['shop_name'];
         }
 
-        return $this->getTags([
-            'name' => $this->options['shop_name'],
-            'url' => $this->options['shop_url'],
+        return $this->getTags(array(
+            'name'    => $this->options['shop_name'],
+            'url'     => $this->options['shop_url'],
             'company' => $this->options['company'], // TODO: encode company.
-        ]);
+        ));
     }
     
     /**
@@ -148,7 +148,7 @@ class YML extends Render
      */
     public function renderElement(Common $element)
     {
-        $offer = [];
+        $offer = array();
         
         $this->appendTag('url', $element, $offer);
         $this->appendTag('price', $element, $offer);
@@ -177,9 +177,9 @@ class YML extends Render
         $this->appendTag('adult', $element, $offer);
         
         if ($element->age) {
-            $offer[] = $this->getTag('age', $element->age, [
+            $offer[] = $this->getTag('age', $element->age, array(
                 'unit' => $element->age_unit,
-            ]);
+            ));
         }
         
         foreach ($element->barcode as $barcode) {
@@ -189,9 +189,9 @@ class YML extends Render
         $this->appendTag('cpa', $element, $offer);
         
         foreach ($element->param as $name => $value) {
-            $offer[] = $this->getTag('param', $value, [
+            $offer[] = $this->getTag('param', $value, array(
                 'name' => $name,
-            ]);
+            ));
         }
         
         $this->appendTag('expiry', $element, $offer);
@@ -201,7 +201,7 @@ class YML extends Render
         $this->appendTag('group_id', $element, $offer);
         $this->appendTag('rec', $element, $offer);
         
-        $this->offerAttributes = ['id', 'available', 'cbid', 'bid', 'fee'];
+        $this->offerAttributes = array('id', 'available', 'cbid', 'bid', 'fee');
         
         $this->renderByType($element, $offer);
         
@@ -224,64 +224,64 @@ class YML extends Render
      */
     protected function renderByType(Common $element, array &$offer)
     {
-        $props = [];
+        $props = array();
 
         switch ($element->getType()) {
             case OfferType::SIMPLE:
-                $props = ['name', 'model', 'vendor', 'vendorCode'];
+                $props = array('name', 'model', 'vendor', 'vendorCode');
                 break;
             
             case OfferType::ARBITRARY:
-                $props = ['model', 'vendor', 'vendorCode', 'typePrefix'];
+                $props = array('model', 'vendor', 'vendorCode', 'typePrefix');
                 $this->offerAttributes[] = 'type';
                 break;
             
             case OfferType::BOOK:
-                $props = [
+                $props = array(
                     'name', 'author', 'publisher', 'series', 'year',
                     'isbn', 'volume', 'part', 'language', 'table_of_contents',
                     'binding', 'page_extent',
-                ];
+                );
                 $this->offerAttributes[] = 'type';
                 break;
             
             case OfferType::AUDIOBOOK:
-                $props = [
+                $props = array(
                     'name', 'author', 'publisher', 'series', 'year',
                     'isbn', 'volume', 'part', 'language', 'table_of_contents',
                     'performed_by', 'performance_type', 'storage', 'format',
                     'recording_length',
-                ];
+                );
                 $this->offerAttributes[] = 'type';
                 break;
             
             case OfferType::MEDIA:
-                $props = [
+                $props = array(
                     'artist', 'title', 'year', 'media', 'starring',
                     'director', 'originalName', 'country',
-                ];
+                );
                 $this->offerAttributes[] = 'type';
                 break;
             
             case OfferType::DRUGS:
-                $props = ['name', 'vendor', 'vendorCode'];
+                $props = array('name', 'vendor', 'vendorCode');
                 $this->offerAttributes[] = 'type';
                 break;
             
             case OfferType::TICKET:
-                $props = [
+                $props = array(
                     'name', 'place', 'hall', 'hall_part', 'date',
                     'is_premiere', 'is_kids',
-                ];
+                );
                 $this->offerAttributes[] = 'type';
                 break;
             
             case OfferType::TOUR:
-                $props = [
+                $props = array(
                     'name', 'worldRegion', 'country', 'region', 'days',
                     'dataTour', 'hotel_stars', 'room', 'meal', 'included',
                     'transport', 'price_min', 'price_max', 'options',
-                ];
+                );
                 $this->offerAttributes[] = 'type';
                 break;
         }
@@ -300,7 +300,7 @@ class YML extends Render
      */
     protected function renderOffer(Common $element, array $offer)
     {
-        $attributes = [];
+        $attributes = array();
         
         foreach ($this->offerAttributes as $name) {
             $attributes[$name] = $element->$name;

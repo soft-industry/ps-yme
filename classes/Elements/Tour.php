@@ -64,23 +64,43 @@ class Tour extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'type' => ['isRequired'],
-            'name' => ['isRequired', ['Validate', 'isGenericName']],
-            'worldRegion' => [['Validate', 'isGenericName']],
-            'country' => [['Validate', 'isGenericName']],
-            'region' => [['Validate', 'isGenericName']],
-            'days' => ['isRequired', ['Validate', 'isGenericName']], // FIXME: better to valid against INT ?
-            'dataTour' => [['Validate', 'isGenericName']],
-            'hotel_stars' => [['Validate', 'isGenericName']],
-            'room' => [['Validate', 'isGenericName']],
-            'meal' => [['Validate', 'isGenericName']],
-            'included' => ['isRequired', ['Validate', 'isGenericName']],
-            'transport' => ['isRequired', ['Validate', 'isGenericName']],
-            'price_min' => [['Validate', 'isPrice']],
-            'price_max' => [['Validate', 'isPrice']],
-            'options' => [['Validate', 'isGenericName']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'type' => array('isRequired'),
+            'name' => array('isRequired', array('Validate', 'isGenericName')),
+            'worldRegion' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'country' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'region' => array(
+                array('Validate', 'isGenericName')
+            ),
+            'days' => array('isRequired', array('Validate', 'isGenericName')), // FIXME: better to valid against INT ?
+            'dataTour' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'hotel_stars' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'room' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'meal' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'included' => array('isRequired', array('Validate', 'isGenericName')),
+            'transport' => array('isRequired', array('Validate', 'isGenericName')),
+            'price_min' => array(
+                array('Validate', 'isPrice'),
+            ),
+            'price_max' => array(
+                array('Validate', 'isPrice'),
+            ),
+            'options' => array(
+                array('Validate', 'isGenericName'),
+            ),
+        ));
     }
     
     /**

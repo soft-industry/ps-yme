@@ -61,14 +61,14 @@ class Excel extends CSV
         return [
             'filename' => 'php://output',
             'type' => 'Excel2007',
-            'header_style' => [
-                'font' => [
+            'header_style' => array(
+                'font' => array(
                     'bold' => true,
-                ],
-                'alignment' => [
+                ),
+                'alignment' => array(
                     'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-                ],
-            ],
+                ),
+            ),
         ];
     }
     

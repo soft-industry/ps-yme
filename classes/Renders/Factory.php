@@ -55,10 +55,10 @@ class Factory
      */
     public static function getTypes()
     {
-        return [
+        return array(
             self::YML => 'Yandex Market YML',
             self::CSV => 'CSV',
             self::XLS => 'Excel document',
-        ];
+        );
     }
 }

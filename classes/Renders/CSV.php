@@ -26,12 +26,12 @@ class CSV extends Render
     /**
      * @var array Current row.
      */
-    protected $row = [];
+    protected $row = array();
     
     /**
      * @var array Added rows.
      */
-    protected $rows = [];
+    protected $rows = array();
     
     /**
      * @inheritdoc
@@ -68,7 +68,7 @@ class CSV extends Render
      */
     public function renderElement(Common $element)
     {
-        $this->row = [];
+        $this->row = array();
 
         $this->setRow('id', $element);
         $this->setRow('available', $element);
@@ -246,7 +246,7 @@ class CSV extends Render
      */
     public function reset()
     {
-        $this->row = [];
-        $this->rows = [];
+        $this->row  = array();
+        $this->rows = array();
     }
 }

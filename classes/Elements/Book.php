@@ -60,21 +60,41 @@ class Book extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'name' => ['isRequired', ['Validate', 'isGenericName']],
-            'author' => [['Validate', 'isGenericName']],
-            'publisher' => [['Validate', 'isGenericName']],
-            'series' => [['Validate', 'isGenericName']],
-            'year' => [['Validate', 'isUnsignedInt']],
-            'isbn' => ['isRequired'],
-            'volume' => [['Validate', 'isUnsignedInt']],
-            'part' => [['Validate', 'isUnsignedInt']],
-            'language' => [['Validate', 'isGenericName']],
-            'table_of_contents' => [['Validate', 'isGenericName']],
-            'type' => ['isRequired'],
-            'binding' => [['Validate', 'isGenericName']],
-            'page_extent' => [['Validate', 'isUnsignedInt']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'name' => array('isRequired', array('Validate', 'isGenericName')),
+            'author' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'publisher' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'series' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'year' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+            'isbn' => array('isRequired'),
+            'volume' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+            'part' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+            'language' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'table_of_contents' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'type' => array('isRequired'),
+            'binding' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'page_extent' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+        ));
     }
     
     /**

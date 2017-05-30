@@ -46,12 +46,18 @@ class Simple extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'name' => ['isRequired', ['Validate', 'isGenericName']],
-            'model' => [['Validate', 'isGenericName']],
-            'vendor' => [['Validate', 'isGenericName']],
-            'vendorCode' => [['Validate', 'isGenericName']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'name' => array('isRequired', array('Validate', 'isGenericName')),
+            'model' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'vendor' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'vendorCode' => array(
+                array('Validate', 'isGenericName'),
+            ),
+        ));
     }
     
     /**

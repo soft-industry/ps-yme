@@ -30,7 +30,7 @@ abstract class Render
      *
      * @param array $options
      */
-    public function __construct(array $options = [])
+    public function __construct(array $options = array())
     {
         $this->options = array_merge($this->getDefaultOptions(), $options);
         $this->init();
@@ -50,7 +50,7 @@ abstract class Render
      */
     public function getDefaultOptions()
     {
-        return [];
+        return array();
     }
     
     /**

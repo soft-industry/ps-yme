@@ -42,7 +42,7 @@ abstract class Common
     
     public $category;
     
-    public $picture = [];
+    public $picture = array();
     
     public $delivery;
     
@@ -76,11 +76,11 @@ abstract class Common
     
     public $age_unit;
     
-    public $barcode = [];
+    public $barcode = array();
     
     public $cpa;
     
-    public $param = [];
+    public $param = array();
     
     public $expiry;
     
@@ -107,7 +107,7 @@ abstract class Common
     /**
      * @var array Validation errors.
      */
-    protected $errors = [];
+    protected $errors = array();
     
     /**
      * @var integer
@@ -119,7 +119,7 @@ abstract class Common
      * in format 'key => value', where key is element property and 
      * value is product feature name.
      */
-    protected $featuresMap = [];
+    protected $featuresMap = array();
     
     /**
      * Creates a new element.
@@ -145,17 +145,23 @@ abstract class Common
      */
     public function getValidators()
     {
-        return [
-            'id' => ['isRequired', ['Validate', 'isUnsignedId']],
-            'url' => ['isRequired', ['Validate', 'isAbsoluteUrl']],
-            'price' => ['isRequired', ['Validate', 'isPrice']],
-            'oldprice' => [['Validate', 'isPrice']],
-            'currencyId' => ['isRequired'],
-            'categoryId' => ['isRequired', ['Validate', 'isUnsignedId']],
-            'category' => ['isRequired', ['Validate', 'isCatalogName']],
-            'picture' => [['Validate', 'isAbsoluteUrl']],
-            'delivery' => [['Validate', 'isBool']],
-        ];
+        return array(
+            'id' => array('isRequired', array('Validate', 'isUnsignedId')),
+            'url' => array('isRequired', array('Validate', 'isAbsoluteUrl')),
+            'price' => array('isRequired', array('Validate', 'isPrice')),
+            'oldprice' => array(
+                array('Validate', 'isPrice'),
+            ),
+            'currencyId' => array('isRequired'),
+            'categoryId' => array('isRequired', array('Validate', 'isUnsignedId')),
+            'category' => array('isRequired', array('Validate', 'isCatalogName')),
+            'picture' => array(
+                array('Validate', 'isAbsoluteUrl'),
+            ),
+            'delivery' => array(
+                array('Validate', 'isBool'),
+            ),
+        );
     }
     
     /**
@@ -273,7 +279,7 @@ abstract class Common
      */
     public function validate()
     {
-        $this->errors = [];
+        $this->errors = array();
         $this->isValid = false;
 
         // Last chance to change element properties.
@@ -344,10 +350,10 @@ abstract class Common
     protected function getParams()
     {
         if (!($features = $this->product->getFeatures())) {
-            return [];
+            return array();
         }
         
-        $params = [];
+        $params = array();
         
         foreach ($features as $data) {
             $feature = \Feature::getFeature($this->id_lang, $data['id_feature']);

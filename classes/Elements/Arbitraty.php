@@ -44,13 +44,17 @@ class Arbitraty extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'type' => ['isRequired'],
-            'model' => ['isRequired', ['Validate', 'isGenericName']],
-            'vendor' => ['isRequired', ['Validate', 'isGenericName']],
-            'vendorCode' => [['Validate', 'isGenericName']],
-            'typePrefix' => [['Validate', 'isGenericName']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'type' => array('isRequired'),
+            'model' => array('isRequired', array('Validate', 'isGenericName')),
+            'vendor' => array('isRequired', array('Validate', 'isGenericName')),
+            'vendorCode' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'typePrefix' => array(
+                array('Validate', 'isGenericName'),
+            ),
+        ));
     }
     
     /**
