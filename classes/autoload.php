@@ -12,18 +12,18 @@
 spl_autoload_register(function ($class) {
 
     $prefix = 'SI\\YandexMarket\\';
-    $len = strlen($prefix);
+    $len = Tools::strlen($prefix);
     
     if (strncmp($prefix, $class, $len) !== 0) {
         return;
     }
     
-    $split = explode('\\', substr($class, $len));
+    $split = explode('\\', Tools::substr($class, $len));
     
     // Get class base name.
     $class_name = array_pop($split);
     
-    $file = __DIR__ .
+    $file = dirname(__FILE__) .
             ($split ? DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $split) : '') .
             DIRECTORY_SEPARATOR . $class_name . '.php';
     

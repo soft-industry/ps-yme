@@ -16,8 +16,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-require_once __DIR__ . '/classes/autoload.php';
-require_once __DIR__ . '/vendor/autoload.php';
+require_once dirname(__FILE__) . '/classes/autoload.php';
+require_once dirname(__FILE__) . '/vendor/autoload.php';
 
 /**
  * Yandex Market
@@ -108,7 +108,6 @@ class Yme extends Module
         
         // Update common module settings.
         if (Tools::isSubmit('SubmitSettings')) {
-            
             $result = false; // Status result.
 
             $offer_type = Tools::getValue('YME_EXPORT');
@@ -145,64 +144,64 @@ class Yme extends Module
         $offer_types = \SI\YandexMarket\OfferType::getTypes();
         $render_types = \SI\YandexMarket\Renders\Factory::getTypes();
 
-        $form = [];
+        $form = array();
         
         // Main settings form.
-        $form[] = [
-            'form' => [
-                'legend' => [
+        $form[] = array(
+            'form' => array(
+                'legend' => array(
                     'title' => $this->l('Yandex Market Export settings'),
-                ],
-                'input' => [
-                    [
+                ),
+                'input' => array(
+                    array(
                         'type' => 'switch',
                         'label' => $this->l('Enable export'),
                         'name' => 'YME_ENABLE',
                         'is_bool' => true,
-                        'values' => [
-                            [
+                        'values' => array(
+                            array(
                                 'id' => 'YME_ENABLE_YES',
                                 'value' => 1,
                                 'label' => $this->l('Enabled'),
-                            ],
-                            [
+                            ),
+                            array(
                                 'id' => 'YME_ENABLE_NO',
                                 'value' => 0,
                                 'label' => $this->l('Disabled'),
-                            ],
-                        ],
-                    ],
-                    [
+                            ),
+                        ),
+                    ),
+                    array(
                         'type' => 'select',
                         'label' => $this->l('Offer type'),
                         'name' => 'YME_EXPORT',
                         'default_value' => \SI\YandexMarket\OfferType::SIMPLE,
-                        'options' => [
+                        'options' => array(
                             'query' => array_map(null, array_keys($offer_types), array_values($offer_types)),
                             'id' => 0,
                             'name' => 1,
-                        ],
-                    ],
-                    [
+                        ),
+                    ),
+                    array(
                         'type' => 'radio',
                         'label' => $this->l('Output format'),
                         'name' => 'YME_EXPORT_FORMAT',
                         'default_value' => \SI\YandexMarket\Renders\Factory::YML,
                         'values' => array_map(function ($type, $title) {
-                            return [
+                            return array(
                                 'id' => $type,
                                 'value' => $type,
                                 'label' => $title,
-                            ];
+                            );
                         }, array_keys($render_types), array_values($render_types)),
-                    ],
-                ],
-                'submit' => [
+                    ),
+                ),
+                'submit' => array(
                     'title' => $this->l('Save'),
                     'name' => 'SubmitSettings',
-                ],
-            ],
-        ];
+                ),
+            ),
+        );
         $helper->fields_value['YME_EXPORT'] = $this->getOfferType();
         $helper->fields_value['YME_EXPORT_FORMAT'] = $this->getExportFormat();
         $helper->fields_value['YME_ENABLE'] = $this->isExportEnabled();
@@ -210,43 +209,42 @@ class Yme extends Module
         
         // Offer element forms.
         foreach ($offer_types as $type => $title) {
-
             $offer = new \SI\YandexMarket\OfferType($type);
             $offer_features = $offer->getFeatures();
             if (empty($offer_features)) {
                 continue;
             }
             
-            $form_type = [
-                'form' => [
-                    'legend' => [
-                        'title' => $this->l(ucfirst($type)),
-                    ],
-                    'input' => [],
-                ],
-            ];
+            $form_type = array(
+                'form' => array(
+                    'legend' => array(
+                        'title' => $this->l(Tools::ucfirst($type)),
+                    ),
+                    'input' => array(),
+                ),
+            );
             $inputs = &$form_type['form']['input'];
             
             foreach ($offer_features as $name => $title) {
                 $input_name = "YME_OFFER_{$type}_{$name}";
-                $inputs[] = [
+                $inputs[] = array(
                     'type' => 'select',
                     'label' => $this->l($title),
                     'name' => $input_name,
                     'default_value' => '',
-                    'options' => [
+                    'options' => array(
                         'query' => $features,
                         'id' => 'id_feature',
                         'name' => 'name',
-                    ],
-                ];
+                    ),
+                );
                 $helper->fields_value[$input_name] = $this->getOfferFeatures($type, $name);
             }
             
-            $form_type['form']['submit'] = [
+            $form_type['form']['submit'] = array(
                 'title' => $this->l('Save'),
                 'name' => 'SubmitOfferFeatures_' . $type,
-            ];
+            );
             
             $form[] = $form_type;
         }
@@ -266,7 +264,7 @@ class Yme extends Module
     {
         $features = unserialize(Configuration::get('YME_OFFER'));
         if ($features === false) {
-            return [];
+            return array();
         }
         
         /**
@@ -294,7 +292,7 @@ class Yme extends Module
         }
 
         if (!isset($features[$type])) {
-            return [];
+            return array();
         }
 
         if ($prop !== null) {

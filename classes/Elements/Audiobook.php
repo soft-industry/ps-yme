@@ -66,24 +66,53 @@ class Audiobook extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'name' => ['isRequired', ['Validate', 'isGenericName']],
-            'author' => [['Validate', 'isGenericName']],
-            'publisher' => [['Validate', 'isGenericName']],
-            'series' => [['Validate', 'isGenericName']],
-            'year' => [['Validate', 'isUnsignedInt']],
-            'isbn' => ['isRequired'],
-            'volume' => [['Validate', 'isUnsignedInt']],
-            'part' => [['Validate', 'isUnsignedInt']],
-            'language' => [['Validate', 'isGenericName']],
-            'table_of_contents' => [['Validate', 'isGenericName']],
-            'type' => ['isRequired'],
-            'performed_by' => [['Validate', 'isGenericName']],
-            'performance_type' => [['Validate', 'isGenericName']],
-            'storage' => [['Validate', 'isGenericName']],
-            'format' => [['Validate', 'isGenericName']],
-            'recording_length' => [[$this, 'validateRecordingLength']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'name' => array(
+                'isRequired',
+                array('Validate', 'isGenericName')
+            ),
+            'author' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'publisher' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'series' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'year' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+            'isbn' => array('isRequired'),
+            'volume' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+            'part' => array(
+                array('Validate', 'isUnsignedInt'),
+            ),
+            'language' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'table_of_contents' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'type' => array('isRequired'),
+            'performed_by' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'performance_type' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'storage' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'format' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'recording_length' => array(
+                array($this, 'validateRecordingLength'),
+            ),
+        ));
     }
     
     /**

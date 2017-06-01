@@ -79,14 +79,14 @@ class YmeExportModuleFrontController extends ModuleFrontController
     {
         $format = $this->module->getExportFormat();
 
-        $options = [];
+        $options = array();
         
         if ($format === RenderFactory::YML) {
             $options['company']    = Configuration::get('BLOCKCONTACTINFOS_COMPANY');
             $options['shop_name']  = Configuration::get('PS_SHOP_NAME');
             $options['shop_url']   = $this->getShopUrl();
-            $options['currencies'] = [$this, 'getCurrencies'];
-            $options['categories'] = [$this, 'getCategories'];
+            $options['currencies'] = array($this, 'getCurrencies');
+            $options['categories'] = array($this, 'getCategories');
         }
 
         return RenderFactory::create($format, $options);
@@ -110,11 +110,12 @@ class YmeExportModuleFrontController extends ModuleFrontController
      */
     protected function getFilename(Generator $generator, $base = 'export-')
     {
-        return sprintf('%s%s-%s.%s',
+        return sprintf(
+            '%s%s-%s.%s',
             $base,
             $generator->getOfferType()->getType(),
             date('Y-m-d'),
-            strtolower($this->module->getExportFormat())
+            Tools::strtolower($this->module->getExportFormat())
         );
     }
     
@@ -139,10 +140,10 @@ class YmeExportModuleFrontController extends ModuleFrontController
     public function getCurrencies()
     {
         return array_map(function (Currency $currency) {
-            return [
+            return array(
                 'id'   => $currency->iso_code,
                 'rate' => $currency->conversion_rate,
-            ];
+            );
         }, Currency::getCurrencies(true));
     }
     
@@ -153,20 +154,18 @@ class YmeExportModuleFrontController extends ModuleFrontController
      */
     public function getCategories()
     {
-        $result = [];
+        $result = array();
         $categories = Category::getCategories(Context::getContext()->language->id);
 
         foreach ($categories as $children) {
-
             foreach ($children as $child) {
                 $child = $child['infos'];
-                $result[] = [
+                $result[] = array(
                     'id'       => $child['id_category'],
                     'name'     => $child['name'],
                     'parentId' => $child['id_parent'],
-                ];
+                );
             }
-
         }
         
         return $result;

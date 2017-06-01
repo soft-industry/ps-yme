@@ -1,7 +1,7 @@
 {
-  "name": "prestashop/yme",
+  "name": "soft-industry/ps-yme",
   "description": "PrestaShop module YandexMarket",
-  "homepage": "https://github.com/softindustry/yme",
+  "homepage": "https://github.com/softindustry/ps-yme",
   "license": "AFL - Academic Free License (AFL 3.0)",
   "authors": [
     {

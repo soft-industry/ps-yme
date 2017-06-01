@@ -42,14 +42,18 @@ class Drugs extends Common
      */
     public function getValidators()
     {
-        return array_merge(parent::getValidators(), [
-            'type' => ['isRequired'],
-            'name' => ['isRequired', ['Validate', 'isGenericName']],
-            'vendor' => [['Validate', 'isGenericName']],
-            'vendorCode' => [['Validate', 'isGenericName']],
-            'pickup' => ['isRequired', ['Validate', 'isBool']],
-            'delivery' => ['isRequired', ['Validate', 'isBool']],
-        ]);
+        return array_merge(parent::getValidators(), array(
+            'type' => array('isRequired'),
+            'name' => array('isRequired', array('Validate', 'isGenericName')),
+            'vendor' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'vendorCode' => array(
+                array('Validate', 'isGenericName'),
+            ),
+            'pickup' => array('isRequired', array('Validate', 'isBool')),
+            'delivery' => array('isRequired', array('Validate', 'isBool')),
+        ));
     }
 
     /**

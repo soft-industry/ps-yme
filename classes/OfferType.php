@@ -34,7 +34,7 @@ class OfferType
     /**
      * @var array
      */
-    protected $features = [];
+    protected $features = array();
     
     /**
      * Creates a new offer type.
@@ -42,7 +42,7 @@ class OfferType
      * @param string $type Offer type name.
      * @param array $features Map element properties to product features.
      */
-    public function __construct($type = self::SIMPLE, array $features = [])
+    public function __construct($type = self::SIMPLE, array $features = array())
     {
         $this->type = $type;
         $this->features = $features;
@@ -99,16 +99,16 @@ class OfferType
      */
     public function getFeatures()
     {
-        $common = [
+        $common = array(
             'country_of_origin' => 'Country of origin',
             'sales_notes' => 'Sales notes',
             'age' => 'Age',
-        ];
-        $features = [];
+        );
+        $features = array();
 
         switch ($this->type) {
             case self::BOOK:
-                $features = [
+                $features = array(
                     'author' => 'Author',
                     'publisher' => 'Publisher',
                     'series' => 'Series',
@@ -120,11 +120,11 @@ class OfferType
                     'table_of_contents' => 'Table of contents',
                     'binding' => 'Binding',
                     'page_extent' => 'Page extent',
-                ];
+                );
                 break;
             
             case self::AUDIOBOOK:
-                $features = [
+                $features = array(
                     'author' => 'Author',
                     'publisher' => 'Publisher',
                     'series' => 'Series',
@@ -139,11 +139,11 @@ class OfferType
                     'storage' => 'Storage',
                     'format' => 'Format',
                     'recording_length' => 'Recording length',
-                ];
+                );
                 break;
             
             case self::MEDIA:
-                $features = [
+                $features = array(
                     'artist' => 'Artist',
                     'title' => 'Title',
                     'year' => 'Year',
@@ -152,22 +152,22 @@ class OfferType
                     'director' => 'Director',
                     'originalName' => 'Original name',
                     'country' => 'Country',
-                ];
+                );
                 break;
             
             case self::TICKET:
-                $features = [
+                $features = array(
                     'place' => 'Place',
                     'hall' => 'Hall',
                     'hall_part' => 'Hall part',
                     'date' => 'Date',
                     'is_premiere' => 'Is premiere',
                     'is_kids' => 'Is kids',
-                ];
+                );
                 break;
             
             case self::TOUR:
-                $features = [
+                $features = array(
                     'worldRegion' => 'World region',
                     'country' => 'Country',
                     'region' => 'Region',
@@ -181,9 +181,8 @@ class OfferType
                     'price_min' => 'Price min',
                     'price_max' => 'Price max',
                     'options' => 'Options',
-                ];
+                );
                 break;
-            
         }
         
         return array_merge($common, $features);
@@ -196,7 +195,7 @@ class OfferType
      */
     public static function getTypes()
     {
-        return [
+        return array(
             self::SIMPLE => 'Simple',
             self::ARBITRARY => 'Arbitrary',
             self::BOOK => 'Book',
@@ -205,6 +204,6 @@ class OfferType
             self::DRUGS => 'Drugs',
             self::TICKET => 'Ticket',
             self::TOUR => 'Tour',
-        ];
+        );
     }
 }
