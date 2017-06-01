@@ -195,6 +195,11 @@ class Yme extends Module
                             );
                         }, array_keys($render_types), array_values($render_types)),
                     ),
+                    array(
+                        'type' => 'html',
+                        'name' => 'YME_YML_LINK',
+                        'html_content' => $this->getExportLink(),
+                    ),
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
@@ -205,7 +210,6 @@ class Yme extends Module
         $helper->fields_value['YME_EXPORT'] = $this->getOfferType();
         $helper->fields_value['YME_EXPORT_FORMAT'] = $this->getExportFormat();
         $helper->fields_value['YME_ENABLE'] = $this->isExportEnabled();
-        
         
         // Offer element forms.
         foreach ($offer_types as $type => $title) {
@@ -332,5 +336,17 @@ class Yme extends Module
     public function isExportEnabled()
     {
         return (bool) Configuration::get('YME_ENABLE');
+    }
+    
+    /**
+     * @return string
+     */
+    public function getExportLink()
+    {
+        if ($this->isExportEnabled()) {
+            $link = Context::getContext()->link->getModuleLink($this->name, 'export');
+            return sprintf('<p>%s <a href="%s" target="_blank">%s</a></p>', $this->l('Export link:'), $link, $link);
+        }
+        return '';
     }
 }
