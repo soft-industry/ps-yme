@@ -7,8 +7,10 @@
 *   @license   http://opensource.org/licenses/afl-3.0.php
 */
 
-use SI\YandexMarket\OfferType;
-use SI\YandexMarket\Renders\Factory as RenderFactory;
+/**
+ * DON'T USE "use" STATEMENTS IN THIS FILE!
+ * THIS LEADS TO FATAL ERROR.
+ */
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -84,7 +86,7 @@ class Yme extends Module
     public function getContent()
     {
         $status = ''; // Message of last operation.
-        $offer_types = OfferType::getTypes();
+        $offer_types = \SI\YandexMarket\OfferType::getTypes();
         $offer_features = $this->getOfferFeatures();
 
         // Update offer types.
@@ -92,7 +94,7 @@ class Yme extends Module
             if (!Tools::isSubmit("SubmitOfferFeatures_{$offer_type}")) {
                 continue;
             }
-            $offer = new OfferType($offer_type);
+            $offer = new \SI\YandexMarket\OfferType($offer_type);
             foreach ($offer->getFeatures() as $feature => $feature_title) {
                 $value_key = "YME_OFFER_{$offer_type}_{$feature}";
                 $offer_features[$offer_type][$feature] = (int) Tools::getValue($value_key);
@@ -115,7 +117,7 @@ class Yme extends Module
             }
             
             $export_format = Tools::getValue('YME_EXPORT_FORMAT');
-            $render_types = RenderFactory::getTypes();
+            $render_types = \SI\YandexMarket\Renders\Factory::getTypes();
             if (isset($render_types[$export_format])) {
                 $result = Configuration::updateValue('YME_EXPORT_FORMAT', $export_format);
             }
@@ -140,8 +142,8 @@ class Yme extends Module
     {
         $helper = new HelperForm();
         $features = array_merge(array('-'), Feature::getFeatures($this->context->language->id));
-        $offer_types = OfferType::getTypes();
-        $render_types = RenderFactory::getTypes();
+        $offer_types = \SI\YandexMarket\OfferType::getTypes();
+        $render_types = \SI\YandexMarket\Renders\Factory::getTypes();
 
         $form = [];
         
@@ -174,7 +176,7 @@ class Yme extends Module
                         'type' => 'select',
                         'label' => $this->l('Offer type'),
                         'name' => 'YME_EXPORT',
-                        'default_value' => OfferType::SIMPLE,
+                        'default_value' => \SI\YandexMarket\OfferType::SIMPLE,
                         'options' => [
                             'query' => array_map(null, array_keys($offer_types), array_values($offer_types)),
                             'id' => 0,
@@ -185,7 +187,7 @@ class Yme extends Module
                         'type' => 'radio',
                         'label' => $this->l('Output format'),
                         'name' => 'YME_EXPORT_FORMAT',
-                        'default_value' => RenderFactory::YML,
+                        'default_value' => \SI\YandexMarket\Renders\Factory::YML,
                         'values' => array_map(function ($type, $title) {
                             return [
                                 'id' => $type,
@@ -209,7 +211,7 @@ class Yme extends Module
         // Offer element forms.
         foreach ($offer_types as $type => $title) {
 
-            $offer = new OfferType($type);
+            $offer = new \SI\YandexMarket\OfferType($type);
             $offer_features = $offer->getFeatures();
             if (empty($offer_features)) {
                 continue;
@@ -310,7 +312,7 @@ class Yme extends Module
     public function getOfferType()
     {
         $value = Configuration::get('YME_EXPORT');
-        return $value === false ? OfferType::SIMPLE : $value;
+        return $value === false ? \SI\YandexMarket\OfferType::SIMPLE : $value;
     }
     
     /**
@@ -321,7 +323,7 @@ class Yme extends Module
     public function getExportFormat()
     {
         $value = Configuration::get('YME_EXPORT_FORMAT');
-        return $value === false ? RenderFactory::YML : $value;
+        return $value === false ? \SI\YandexMarket\Renders\Factory::YML : $value;
     }
     
     /**
